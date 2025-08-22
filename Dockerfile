@@ -15,6 +15,8 @@ RUN apt-get update && apt-get upgrade -y \
     && update-locale LANG=en_US.UTF-8 \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+RUN apt update && apt install -y ffmpeg
+
 RUN wget https://github.com/conda-forge/miniforge/releases/download/25.3.1-0/Miniforge3-25.3.1-0-Linux-x86_64.sh \
     && bash Miniforge3-25.3.1-0-Linux-x86_64.sh  -b -p /opt/miniforge \
     && rm -f Miniforge3-25.3.1-0-Linux-x86_64.sh
