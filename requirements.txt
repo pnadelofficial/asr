@@ -1,0 +1,4 @@
+whisper
+torch
+soundfile
+pyannote.audio
