@@ -2,3 +2,4 @@ openai-whisper
 torch
 soundfile
 pyannote.audio
+safetensors
