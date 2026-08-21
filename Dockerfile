@@ -31,9 +31,6 @@ RUN conda create -n asr python=${PYTHON_VERSION} && conda clean -a -y
 ENV CONDA_PREFIX=/opt/conda/envs/asr
 ENV PATH=$CONDA_PREFIX/bin:$PATH
 
-RUN conda init
-RUN conda activate asr
-
 COPY requirements.txt .
 RUN CMAKE_ARGS="-DGGML_CUDA=on" pip install --no-cache-dir -r requirements.txt
 
