@@ -17,6 +17,8 @@ RUN apt-get update && apt-get upgrade -y \
 
 RUN apt update && apt install -y ffmpeg
 
+ARG PYTHON_VERSION=3.11
+
 RUN wget https://github.com/conda-forge/miniforge/releases/download/25.3.1-0/Miniforge3-25.3.1-0-Linux-x86_64.sh \
     && bash Miniforge3-25.3.1-0-Linux-x86_64.sh  -b -p /opt/miniforge \
     && rm -f Miniforge3-25.3.1-0-Linux-x86_64.sh
@@ -24,6 +26,12 @@ RUN wget https://github.com/conda-forge/miniforge/releases/download/25.3.1-0/Min
 RUN conda update --all \
     && conda clean --all --yes \
     && rm -rf /root/.cache/pip
+
+RUN conda create -n asr python=${PYTHON_VERSION} && conda clean -a -y
+ENV CONDA_PREFIX=/opt/conda/envs/asr
+ENV PATH=$CONDA_PREFIX/bin:$PATH
+
+RUN conda activate asr
 
 COPY requirements.txt .
 RUN CMAKE_ARGS="-DGGML_CUDA=on" pip install --no-cache-dir -r requirements.txt
